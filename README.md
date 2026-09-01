@@ -63,7 +63,7 @@ One gotcha if you set this up yourself: even with `tensorflow[and-cuda]` install
 ```
 Data/                          small_vocab_en.csv / small_vocab_fr.csv (source sentence pairs)
 Notes/                          Personal working notes written while building this
-test.ipynb                     Transformer I — full-data training, no validation split
+transformer_i.ipynb            Transformer I — full-data training, no validation split
 transformer_ii.ipynb           Transformer II — 85/10/5 split, 20-epoch ceiling
 transformer_iii.ipynb          Transformer III — 85/10/5 split, 100-epoch ceiling, early stopping triggered
 main.py                        Loads all three history JSONs, produces the comparison chart + table
