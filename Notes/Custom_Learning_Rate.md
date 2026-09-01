@@ -61,7 +61,7 @@ This means every decoder vector is multiplied by the vocabulary matrix, producin
 After softmax:
 
 $$
-P(y_t \mid y_{<t}, x) = \text{softmax}(Z_t)
+P(y_t \mid y_{\lt t}, x) = \text{softmax}(Z_t)
 $$
 
 ---
@@ -91,7 +91,7 @@ The loss uses all positions:
 $$
 \mathcal{L}
 = -\sum_{t=1}^{T}
-\log P(y_t \mid y_{<t}, x)
+\log P(y_t \mid y_{\lt t}, x)
 $$
 
 So during training, we use:
