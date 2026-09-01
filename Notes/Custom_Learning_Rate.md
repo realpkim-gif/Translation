@@ -7,7 +7,7 @@ In a Transformer, the decoder returns one output vector for each target-token po
 If
 
 $$
-\text{dec_output} \in \mathbb{R}^{B \times T \times d_{\text{model}}}
+\text{dec output} \in \mathbb{R}^{B \times T \times d_{\text{model}}}
 $$
 
 then:
@@ -210,7 +210,7 @@ s = \text{step}
 $$
 
 $$
-w = \text{warmup_steps}
+w = \text{warmup steps}
 $$
 
 $$
