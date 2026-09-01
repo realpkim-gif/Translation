@@ -137,7 +137,7 @@ The matrix multiplication simply computes this for **every Query simultaneously*
 
 ## Why is the Output (1×64)?
 
-The key is that **\(V_i\) is not a number—it is a 64-dimensional vector.**
+The key is that **$V_i$ is not a number—it is a 64-dimensional vector.**
 
 Suppose:
 

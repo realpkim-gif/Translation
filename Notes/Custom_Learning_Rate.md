@@ -12,9 +12,9 @@ $$
 
 then:
 
-- \(B\) is the batch size
-- \(T\) is the target sequence length
-- \(d_{\text{model}}\) is the model dimension
+- $B$ is the batch size
+- $T$ is the target sequence length
+- $d_{\text{model}}$ is the model dimension
 
 So `dec_output` contains all final decoder-layer vectors:
 
@@ -342,7 +342,7 @@ $$
 
 Since this derivative is negative, the learning rate decreases after warmup.
 
-Because the denominator contains \(s^{3/2}\), the magnitude of the derivative gets smaller over time. So the curve gradually flattens.
+Because the denominator contains $s^{3/2}$, the magnitude of the derivative gets smaller over time. So the curve gradually flattens.
 
 ---
 
@@ -391,7 +391,7 @@ $$
 \frac{1}{2\sqrt d \, s^{3/2}}
 $$
 
-At \(s=w\):
+At $s=w$:
 
 $$
 \left|
@@ -424,7 +424,7 @@ $$
 \right|_{\text{before}}
 $$
 
-So the inverse-square-root decay changes more slowly than the linear warmup, and it gets flatter as \(s\) increases.
+So the inverse-square-root decay changes more slowly than the linear warmup, and it gets flatter as $s$ increases.
 
 ---
 
