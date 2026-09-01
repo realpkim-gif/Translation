@@ -90,8 +90,7 @@ The loss uses all positions:
 
 $$
 \mathcal{L}
-=
--\sum_{t=1}^{T}
+= -\sum_{t=1}^{T}
 \log P(y_t \mid y_{<t}, x)
 $$
 
@@ -135,16 +134,14 @@ Mathematically:
 
 $$
 Z_{\text{last}}
-=
-h_T W_{\text{vocab}} + b
+= h_T W_{\text{vocab}} + b
 $$
 
 and:
 
 $$
 P(y_{T+1} \mid y_{\le T}, x)
-=
-\text{softmax}(Z_{\text{last}})
+= \text{softmax}(Z_{\text{last}})
 $$
 
 Summary:
@@ -194,8 +191,7 @@ The Transformer learning rate schedule is:
 
 $$
 LR(s)
-=
-d_{\text{model}}^{-\frac{1}{2}}
+= d_{\text{model}}^{-\frac{1}{2}}
 \min
 \left(
 s^{-\frac{1}{2}},
@@ -221,8 +217,7 @@ Equivalently:
 
 $$
 LR(s)
-=
-\frac{1}{\sqrt{d_{\text{model}}}}
+= \frac{1}{\sqrt{d_{\text{model}}}}
 \min
 \left(
 \frac{1}{\sqrt{s}},
@@ -244,8 +239,7 @@ the learning rate uses the linear warmup term:
 
 $$
 LR(s)
-=
-\frac{1}{\sqrt d}
+= \frac{1}{\sqrt d}
 \cdot
 \frac{s}{w^{3/2}}
 $$
@@ -254,16 +248,14 @@ So:
 
 $$
 LR(s)
-=
-\frac{s}{\sqrt d \, w^{3/2}}
+= \frac{s}{\sqrt d \, w^{3/2}}
 $$
 
 Its derivative is:
 
 $$
 \frac{d}{ds}LR(s)
-=
-\frac{1}{\sqrt d \, w^{3/2}}
+= \frac{1}{\sqrt d \, w^{3/2}}
 $$
 
 This is constant, meaning the learning rate increases linearly during warmup.
@@ -282,8 +274,7 @@ the learning rate reaches its maximum:
 
 $$
 LR(w)
-=
-\frac{1}{\sqrt d}
+= \frac{1}{\sqrt d}
 \cdot
 \frac{w}{w^{3/2}}
 $$
@@ -292,16 +283,14 @@ Since:
 
 $$
 \frac{w}{w^{3/2}}
-=
-\frac{1}{\sqrt w}
+= \frac{1}{\sqrt w}
 $$
 
 we get:
 
 $$
 LR_{\max}
-=
-\frac{1}{\sqrt{dw}}
+= \frac{1}{\sqrt{dw}}
 $$
 
 ---
@@ -318,8 +307,7 @@ the schedule uses inverse-square-root decay:
 
 $$
 LR(s)
-=
-\frac{1}{\sqrt d}
+= \frac{1}{\sqrt d}
 \cdot
 \frac{1}{\sqrt s}
 $$
@@ -328,16 +316,14 @@ So:
 
 $$
 LR(s)
-=
-\frac{1}{\sqrt{ds}}
+= \frac{1}{\sqrt{ds}}
 $$
 
 The derivative is:
 
 $$
 \frac{d}{ds}LR(s)
-=
--\frac{1}{2\sqrt d \, s^{3/2}}
+= -\frac{1}{2\sqrt d \, s^{3/2}}
 $$
 
 Since this derivative is negative, the learning rate decreases after warmup.
@@ -352,8 +338,7 @@ The whole schedule can be written as:
 
 $$
 LR(s)
-=
-\begin{cases}
+= \begin{cases}
 \frac{s}{\sqrt d \, w^{3/2}}, & s \le w \\[8pt]
 \frac{1}{\sqrt{ds}}, & s \ge w
 \end{cases}
@@ -377,8 +362,7 @@ $$
 \left|
 \frac{d}{ds}LR(s)
 \right|
-=
-\frac{1}{\sqrt d \, w^{3/2}}
+= \frac{1}{\sqrt d \, w^{3/2}}
 $$
 
 After warmup:
@@ -387,8 +371,7 @@ $$
 \left|
 \frac{d}{ds}LR(s)
 \right|
-=
-\frac{1}{2\sqrt d \, s^{3/2}}
+= \frac{1}{2\sqrt d \, s^{3/2}}
 $$
 
 At $s=w$:
@@ -397,8 +380,7 @@ $$
 \left|
 \frac{d}{ds}LR(w)
 \right|_{\text{after}}
-=
-\frac{1}{2\sqrt d \, w^{3/2}}
+= \frac{1}{2\sqrt d \, w^{3/2}}
 $$
 
 while:
@@ -407,8 +389,7 @@ $$
 \left|
 \frac{d}{ds}LR(w)
 \right|_{\text{before}}
-=
-\frac{1}{\sqrt d \, w^{3/2}}
+= \frac{1}{\sqrt d \, w^{3/2}}
 $$
 
 Therefore:
@@ -417,8 +398,7 @@ $$
 \left|
 \frac{d}{ds}LR(w)
 \right|_{\text{after}}
-=
-\frac{1}{2}
+= \frac{1}{2}
 \left|
 \frac{d}{ds}LR(w)
 \right|_{\text{before}}
