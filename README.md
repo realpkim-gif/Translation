@@ -40,21 +40,17 @@ The headline gain from Transformer II → III looks small — about 0.1–0.2 pe
 
 That's the real value of early stopping: it's not a trick for squeezing out an extra tenth of a percent, it's a guard against overfitting — training only as long as the model is generalizing better, and stopping (with the best weights restored) the moment it stops. A 0.1% gap can look trivial on a small toy dataset like this one, but the same principle scales directly to higher-stakes settings — imbalanced classification, recall-critical tasks scored on F2, medical or safety-relevant models — where a fraction of a percent of accuracy or recall is exactly the margin that matters, and where an overfit model that looks great on training data but generalizes poorly is a real, costly failure mode. Getting early stopping right here, on a small controlled experiment, is practice for getting it right where it counts.
 
-## ⚠️ Reproducibility Warning: Transformer II vs. Transformer III
+## ⚠️ History Note: How Transformer III Was Actually Made
 
-**There is no separate `transformer_iii.ipynb` file.** Transformer II and Transformer III were produced from the *same* notebook, `transformer_ii.ipynb`, by editing it in place. Running the notebook as it currently sits in this repo reproduces **Transformer III**, not Transformer II. If you want to reproduce Transformer II's exact run, or understand what actually changed, here is the complete, minimal list of edits made to go from II → III:
+Transformer II and Transformer III were originally produced from the *same* notebook (`transformer_ii.ipynb`), by editing it in place — there was no separate `transformer_iii.ipynb` file at first. The repo has since been split back apart (`transformer_ii.ipynb` restored to the original Transformer II config, `transformer_iii.ipynb` added as its own file), but the exact diff between the two configs is worth documenting, since it's the entire point of the experiment:
 
-1. **Epoch ceiling** — the hyperparameter cell's `EPOCHS = 20` was changed to `EPOCHS = 100`. (`EarlyStopping(patience=5, monitor='val_accuracy', restore_best_weights=True)` was already present in both — this was not new to III, it just never got the chance to trigger under II's low ceiling.)
-2. **Weight output filename** — `transformer.save_weights("transformer2_weights.weights.h5")` → `"transformer3_weights.weights.h5"`.
-3. **History output filename** — the final `json.dump(...)` cell's target changed from `"transformer2_history.json"` → `"transformer3_history.json"`.
+1. **Epoch ceiling** — `EPOCHS = 20` (II) → `EPOCHS = 100` (III). (`EarlyStopping(patience=5, monitor='val_accuracy', restore_best_weights=True)` was already present in both — this was not new to III, it just never got the chance to trigger under II's low ceiling.)
+2. **Weight output filename** — `"transformer2_weights.weights.h5"` (II) → `"transformer3_weights.weights.h5"` (III).
+3. **History output filename** — `"transformer2_history.json"` (II) → `"transformer3_history.json"` (III).
 
-Everything else — the 85/10/5 split, `embedding_dim=256`, `num_heads=8`, `num_layers=4`, `dropout_rate=0.1`, `batch_size=64`, the model architecture itself — is identical between II and III.
+Everything else — the 85/10/5 split, `embedding_dim=256`, `num_heads=8`, `num_layers=4`, `dropout_rate=0.1`, `batch_size=64`, the model architecture itself — is identical between II and III. `transformer_ii.ipynb` and `transformer_iii.ipynb` now each carry the correct `EPOCHS` value and output filenames for their own model, so running either notebook top-to-bottom reproduces that specific model directly.
 
-**To reproduce Transformer II from the current notebook:** reverse steps 1–3 above (`EPOCHS = 20`, filenames back to `transformer2_*`) before running.
-
-**To go from II back to III:** re-apply steps 1–3.
-
-A couple of the notebook's own markdown headers (e.g. "Transformer II — 85/10/5 split...") were **not** updated when the file became Transformer III's code, so don't rely on the notebook's in-line prose to tell you which config is currently active — check the `EPOCHS` value and output filenames directly.
+A couple of the notebooks' own markdown headers (e.g. "Transformer II — 85/10/5 split...") still say "Transformer II" in both files, a holdover from when they were one file — don't rely on the notebook's in-line prose to tell you which config is active, check the `EPOCHS` value and output filenames directly.
 
 ## Environment & GPU Notes
 
@@ -66,8 +62,10 @@ One gotcha if you set this up yourself: even with `tensorflow[and-cuda]` install
 
 ```
 Data/                          small_vocab_en.csv / small_vocab_fr.csv (source sentence pairs)
+Notes/                          Personal working notes written while building this
 test.ipynb                     Transformer I — full-data training, no validation split
-transformer_ii.ipynb           Transformer II/III — see the warning above
+transformer_ii.ipynb           Transformer II — 85/10/5 split, 20-epoch ceiling
+transformer_iii.ipynb          Transformer III — 85/10/5 split, 100-epoch ceiling, early stopping triggered
 main.py                        Loads all three history JSONs, produces the comparison chart + table
 transformer*_history.json      Per-epoch loss/accuracy/val/test results for each model
 model_comparison.png           Loss + accuracy curves, all three models

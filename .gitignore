@@ -180,9 +180,8 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-# Personal notes (keep README.md tracked)
-*.md
-!README.md
-
 # Trained model weights
 *.weights.h5
+
+# Scratch notebook-comparison dumps
+*_dump.txt
